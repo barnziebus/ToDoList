@@ -9,19 +9,24 @@
 <body>
     <h1>Procastionator's Pal</h1>
     <h2>The ultimate tool to help you procastinate!!</h2>
-    <div class="todo-list-container" id="todoListContainer">
+    <div class="todo-list-container-headers" id="todoListHeaders">
         <div class="header">Task</div>
         <div class="header">Comment</div>
         <div class="header">Done</div>
-
-        <div class="item">Teach the pet rock a new trick.</div>
-        <div class="item">He's a slow learner but has a big heart so keep at it.</div>
-        <div class="item">Tick Box</div>
-        
     </div>
+    
+    <div class="todo-list-container" id="todoListContainer">
+        <div class="row">
+            <div class="item">Teach the pet rock a new trick.</div>
+            <div class="item">He's a slow learner but has a big heart so keep at it.</div>
+            <div class="item"><input type="checkbox"></input></div>
+        </div>
+    </div>
+
 
     <button id="addRowButton">Add Row</button>
 
-    <script src="main.js"></script>
+    <script src="newListItem.js" type="module"></script>
+    <script src="main.js" type="module"></script>
 </body>
 </html>
