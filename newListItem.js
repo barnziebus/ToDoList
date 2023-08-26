@@ -19,11 +19,11 @@ export class newTodoListItem {
 
     buildTaskCell(container) {
         let taskCellContainer = document.createElement("div");
-        let taskCellContent = document.createElement("p");
+        let taskCellContent = document.createElement("input");
 
         taskCellContainer.classList.add("item")
 
-        taskCellContent.textContent = `Example Text Content`;
+        taskCellContent.placeholder = `Example Text Content`;
 
         taskCellContainer.appendChild(taskCellContent)
         container.appendChild(taskCellContainer);
@@ -31,11 +31,11 @@ export class newTodoListItem {
 
     buildCommentCell(container) {
         let commentCellContainer = document.createElement("div");
-        let commentCellContent = document.createElement("p");
+        let commentCellContent = document.createElement("input");
 
         commentCellContainer.classList.add("item");
         
-        commentCellContent.textContent = `Example comment`;
+        commentCellContent.placeholder = `Example comment`;
 
         commentCellContainer.appendChild(commentCellContent);
         container.appendChild(commentCellContainer);
