@@ -1,7 +1,7 @@
 /* styles.css */
 .todo-list-container-headers {
   display: grid;
-  grid-template-columns: 30% 60% 10%;
+  grid-template-columns: 30% 50% 10% 10%;
   grid-gap: 10px;
   margin-left: 10px;
   margin-right: 10px;
@@ -9,6 +9,7 @@
 
 .header {
   background-color: #f0f0f0;
+  grid-template-columns: 30% 50% 10% 10%;
   padding: 10px;
   text-align: center;
   font-weight: bold;
@@ -16,7 +17,7 @@
 
 .row {
   display: grid;
-  grid-template-columns: 30% 60% 10%;
+  grid-template-columns: 30% 50% 10% 10%;
   grid-gap: 10px;
   margin-left: 10px;
   margin-right: 10px;

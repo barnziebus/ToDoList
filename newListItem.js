@@ -8,11 +8,12 @@ export class newTodoListItem {
 
     buildRow(container) {
         let rowContainer = document.createElement("div");
-        rowContainer.classList.add("row")
+        rowContainer.classList.add("row");
 
-        this.buildTaskCell(rowContainer)
-        this.buildCommentCell(rowContainer)
-        this.addTickBox(rowContainer)
+        this.buildTaskCell(rowContainer);
+        this.buildCommentCell(rowContainer);
+        this.addTickBox(rowContainer);
+        this.addDeleteButton(rowContainer);
 
         container.appendChild(rowContainer);
     }
@@ -51,5 +52,25 @@ export class newTodoListItem {
 
         tickboxContainer.appendChild(tickboxContent);
         container.appendChild(tickboxContainer);
+    }
+
+    addDeleteButton(container) {
+        let deleteButtonContainer = document.createElement("div");
+        let deleteButton = document.createElement("button");
+
+        deleteButtonContainer.classList.add("item");
+
+        deleteButton.innerText = `🗑`;
+        deleteButton.addEventListener("click", () => {
+            //console.log(`Delete button clicked`)
+            this.deleteRow(container)
+        }) 
+
+        deleteButtonContainer.appendChild(deleteButton);
+        container.appendChild(deleteButtonContainer);
+    }
+
+    deleteRow(container) {
+        container.remove();
     }
 }
