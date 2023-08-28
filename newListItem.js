@@ -1,5 +1,5 @@
 export class newTodoListItem {
-    constructor(listContainer) {
+    constructor(listContainer, rowData=0) {
         console.log(`Build new row has be initalised from the newTodoListItem class`)
         this.listContainer = listContainer
 
@@ -25,6 +25,7 @@ export class newTodoListItem {
         taskCellContainer.classList.add("item")
 
         taskCellContent.placeholder = `Example Text Content`;
+        taskCellContent.id = "taskInput";
 
         taskCellContainer.appendChild(taskCellContent)
         container.appendChild(taskCellContainer);
@@ -37,6 +38,7 @@ export class newTodoListItem {
         commentCellContainer.classList.add("item");
         
         commentCellContent.placeholder = `Example comment`;
+        commentCellContent.id = "commentInput";
 
         commentCellContainer.appendChild(commentCellContent);
         container.appendChild(commentCellContainer);
@@ -49,6 +51,7 @@ export class newTodoListItem {
         tickboxContainer.classList.add("item");
 
         tickboxContent.type = "checkbox";
+        tickboxContent.id = "tickboxInput";
 
         tickboxContainer.appendChild(tickboxContent);
         container.appendChild(tickboxContainer);
