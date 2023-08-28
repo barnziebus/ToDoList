@@ -13,8 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     debugButton.addEventListener("click", function() {
-        const dataTest = document.querySelectorAll("input");
-        console.log(dataTest);
+        logData(todoListContainer);
     });
 
 
@@ -45,12 +44,13 @@ function saveData(todoListContainer) {
         const tickbox = row.querySelector("#tickboxInput");
 
         const taskData = {
-            "task": taskInput.data,
-            "comment": commentInput.data,
-            "done": tickbox.checked,
+            task: taskInput.value,
+            comment: commentInput.value,
+            done: tickbox.checked,
         };
 
         data.push(taskData);
+        console.log(taskInput.value)
     });
 
     localStorage.setItem("todoListData", JSON.stringify(data));
