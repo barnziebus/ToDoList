@@ -27,7 +27,7 @@ function addRow(todoListContainer) {
 
 
 function createNewRow(todoListContainer) {
-    const newTodoTask = new newTodoListItem(todoListContainer)
+    const newTodoTask = new newTodoListItem(todoListContainer, saveData)
 
     return newTodoTask;
 }
@@ -50,7 +50,6 @@ function saveData(todoListContainer) {
         };
 
         data.push(taskData);
-        console.log(taskInput.value)
     });
 
     localStorage.setItem("todoListData", JSON.stringify(data));
@@ -70,7 +69,7 @@ function logData(todoListContainer) {
 
     if (savedData) {
         const parsedData = JSON.parse(savedData);
-        console.log(parsedData)
+        console.log(savedData)
     } else {
         console.log(`no data to log`)
     }

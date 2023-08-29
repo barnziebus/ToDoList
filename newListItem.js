@@ -1,9 +1,10 @@
 export class newTodoListItem {
-    constructor(listContainer, rowData=0) {
+    constructor(todoListContainer, saveData, rowData=0) {
         console.log(`Build new row has be initalised from the newTodoListItem class`)
-        this.listContainer = listContainer
+        this.listContainer = todoListContainer
+        this.saveData = saveData //save data function passed from main.js
 
-        this.buildRow(listContainer)
+        this.buildRow(todoListContainer)
     }
 
     buildRow(container) {
@@ -27,6 +28,8 @@ export class newTodoListItem {
         taskCellContent.placeholder = `Example Text Content`;
         taskCellContent.id = "taskInput";
 
+        this.handleInputChange(taskCellContent)
+
         taskCellContainer.appendChild(taskCellContent)
         container.appendChild(taskCellContainer);
     }
@@ -40,6 +43,8 @@ export class newTodoListItem {
         commentCellContent.placeholder = `Example comment`;
         commentCellContent.id = "commentInput";
 
+        this.handleInputChange(commentCellContent)
+
         commentCellContainer.appendChild(commentCellContent);
         container.appendChild(commentCellContainer);
     }
@@ -52,6 +57,8 @@ export class newTodoListItem {
 
         tickboxContent.type = "checkbox";
         tickboxContent.id = "tickboxInput";
+
+        this.handleInputChange(tickboxContent)
 
         tickboxContainer.appendChild(tickboxContent);
         container.appendChild(tickboxContainer);
@@ -75,5 +82,11 @@ export class newTodoListItem {
 
     deleteRow(container) {
         container.remove();
+    }
+
+    handleInputChange(element) {
+        element.addEventListener("change", () => {
+        this.saveData(document.getElementById("todoListContainer"));
+        }); 
     }
 }
