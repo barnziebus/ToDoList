@@ -1,10 +1,24 @@
 export class newTodoListItem {
-    constructor(todoListContainer, saveData, rowData=0) {
-        console.log(`Build new row has be initalised from the newTodoListItem class`)
+    constructor(todoListContainer, saveData, rowData, database, deleteRow) {
         this.listContainer = todoListContainer
         this.saveData = saveData //save data function passed from main.js
+        this.deleteRow = deleteRow //delete row function passed from main.js
 
-        this.buildRow(todoListContainer)
+        this.db = database
+
+        this.task = null
+        this.comment = null
+        this.done = null
+
+        if ('task' in rowData && 'comment' in rowData && 'done' in rowData) {
+            this.task = rowData['task']
+            this.comment = rowData['comment']
+            this.done = rowData['done']
+        }
+
+        this.masterData = masterData
+
+        this.buildRow(todoListContainer, masterData)
     }
 
     buildRow(container) {
@@ -14,7 +28,7 @@ export class newTodoListItem {
         this.buildTaskCell(rowContainer);
         this.buildCommentCell(rowContainer);
         this.addTickBox(rowContainer);
-        this.addDeleteButton(rowContainer);
+        this.addDeleteButton(rowContainer, this.masterData);
 
         container.appendChild(rowContainer);
     }
@@ -27,6 +41,7 @@ export class newTodoListItem {
 
         taskCellContent.placeholder = `Example Text Content`;
         taskCellContent.id = "taskInput";
+        taskCellContent.value = this.task
 
         this.handleInputChange(taskCellContent)
 
@@ -42,6 +57,7 @@ export class newTodoListItem {
         
         commentCellContent.placeholder = `Example comment`;
         commentCellContent.id = "commentInput";
+        commentCellContent.value = this.comment
 
         this.handleInputChange(commentCellContent)
 
@@ -57,6 +73,7 @@ export class newTodoListItem {
 
         tickboxContent.type = "checkbox";
         tickboxContent.id = "tickboxInput";
+        tickboxContent.value = this.comment
 
         this.handleInputChange(tickboxContent)
 
@@ -72,21 +89,21 @@ export class newTodoListItem {
 
         deleteButton.innerText = `🗑`;
         deleteButton.addEventListener("click", () => {
-            //console.log(`Delete button clicked`)
-            this.deleteRow(container)
+            this.deleteRow(this.task)
+            container.remove()
         }) 
 
         deleteButtonContainer.appendChild(deleteButton);
         container.appendChild(deleteButtonContainer);
     }
 
-    deleteRow(container) {
-        container.remove();
-    }
-
     handleInputChange(element) {
         element.addEventListener("change", () => {
-        this.saveData(document.getElementById("todoListContainer"));
+            this.task = this.listContainer.querySelector("#taskInput").value;
+            this.comment = this.listContainer.querySelector("#commentInput").value;
+            this.done = this.listContainer.querySelector("#tickboxInput").checked;
+
+            this.db
         }); 
-    }
+    }    
 }
