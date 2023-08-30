@@ -29,5 +29,16 @@ function deleteRow(taskIdToDelete) {
 }  
 
 function saveData() {
-    return
+    let rowInstancesJSON = JSON.stringify(rowInstances)
+    let taskIdJSON = JSON.stringify(taskId)
+
+    localStorage.setItem("row instances", rowInstancesJSON)
+    localStorage.setItem("task id", taskIdJSON)
 }
+
+function loadData() {
+    rowInstances = JSON.parse(localStorage.getItem("row instances"))
+    taskId = JSON.parse(localStorage.getItem("task id"))
+}
+
+// save the list data into an object then instance the new todlist objects from the data
