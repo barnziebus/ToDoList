@@ -35,7 +35,7 @@ function addBlankRow(todoListContainer, userData) {
     userData.push(blankRowData);
 
     taskId += 1;
-    console.log(userData)
+    saveData()
 }
 
 function deleteTaskData(taskIdToDelete) {
@@ -43,6 +43,7 @@ function deleteTaskData(taskIdToDelete) {
     let index = userData.findIndex(instance => instance.id === taskIdToDelete); //find the data in the userdata list based on the object's id
     userData.splice(index, 1) //remove the object based on its index
     console.log(userData)
+    saveData()
 }  
 
 function saveData() {
@@ -60,7 +61,7 @@ function loadData() {
     if (loadedData) {
         return loadedData
     } else {
-        loadedData = [{"id": 0, "task": "Teach pet rock new tricks", "comment": "Be patients he's a slow learner", "complete": false}] //list of objects {id: int, task: str, comment: str, complete: bool}
+        loadedData = [{"id": 0, "task": "Teach pet rock new tricks", "comment": "Be patient he's a slow learner", "complete": false}] //list of objects {id: int, task: str, comment: str, complete: bool}
         return loadedData
     }
 }
@@ -73,6 +74,3 @@ function updateUserData(taskId, task, comment, complete) {
 
     saveData()
 }
-
-
-// save the list data into an object then instance the new todlist objects from the data
