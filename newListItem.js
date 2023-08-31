@@ -1,23 +1,31 @@
-export class newTodoListItem {
-    constructor(todoListContainer, saveData, rowData, deleteRow, taskId) {
+export class todoListItem {
+    constructor(todoListContainer, rowData, saveDataFunc, deleteRowFunc, updateUserData) {
         this.listContainer = todoListContainer
-        this.saveData = saveData //save data function passed from main.js
-        this.deleteRow = deleteRow //delete row function passed from main.js
-        this.taskId = taskId
+
+        this.saveData = saveDataFunc //save data function passed from main.js
+        this.deleteRow = deleteRowFunc //delete row function passed from main.js
+        this.updateUserData = updateUserData //function used to modify user data for save loading
+
+        this.id = rowData["id"]
 
         this.task = null
         this.comment = null
-        this.done = null
+        this.complete = null
 
-        if ('task' in rowData && 'comment' in rowData && 'done' in rowData) {
-            this.task = rowData['task']
-            this.comment = rowData['comment']
-            this.done = rowData['done']
-        }
-
+        this.setRowData(rowData)
         this.buildRow(todoListContainer)
+    }
 
-        taskId += 1;
+    setRowData(rowData) {
+        if ('task' in rowData) {
+            this.task = rowData['task']
+        } 
+        if ('comment' in rowData) {
+            this.comment = rowData['comment']
+        } 
+        if ('complete' in rowData) {
+            this.done = rowData['complete']
+        }
     }
 
     buildRow(container) {
@@ -47,6 +55,7 @@ export class newTodoListItem {
 
         taskCellContent.addEventListener("change", () => {
             this.task = taskCellContent.value;
+            this.todoItemDataHandler()
         }); 
     }
 
@@ -62,6 +71,7 @@ export class newTodoListItem {
 
         commentCellContent.addEventListener("change", () => {
             this.comment = commentCellContent.value
+            this.todoItemDataHandler()
         }); 
 
         commentCellContainer.appendChild(commentCellContent);
@@ -79,7 +89,8 @@ export class newTodoListItem {
         tickboxContent.checked = this.done
 
         tickboxContent.addEventListener("change", () => {
-            this.done = tickboxContent.checked
+            this.complete = tickboxContent.checked
+            this.todoItemDataHandler()
         }); 
 
         tickboxContainer.appendChild(tickboxContent);
@@ -94,11 +105,15 @@ export class newTodoListItem {
 
         deleteButton.innerText = `🗑`;
         deleteButton.addEventListener("click", () => {
-            this.deleteRow(this.task)
+            this.deleteRow(this.id)
             container.remove()
         }) 
 
         deleteButtonContainer.appendChild(deleteButton);
         container.appendChild(deleteButtonContainer);
-    }  
+    }
+    
+    todoItemDataHandler() {
+        this.updateUserData(this.id, this.task, this.comment, this.complete)
+    }
 }

@@ -1,44 +1,78 @@
 //import { DataHandler } from "./dataHandler.js";
-import { newTodoListItem } from "./newListItem.js";
+import { todoListItem } from "./newListItem.js";
 
 let rowInstances = []
-let taskId = 1
+let taskId = null
+let userData = null
 
 document.addEventListener("DOMContentLoaded", function() {
+    taskId = 1
+    userData = loadData()
+
     const addButton = document.getElementById("addRowButton");
     const todoListContainer = document.getElementById("todoListContainer");
 
     addButton.addEventListener("click", function() {
-        addRow(todoListContainer);
+        addBlankRow(todoListContainer, userData);
     });
 
-    addRow(todoListContainer)
+    initTodoList(todoListContainer, userData);
 });
 
-function addRow(todoListContainer) {
-    let blankRowData = {}
-    let newTodoTask = new newTodoListItem(todoListContainer, saveData, blankRowData, deleteRow, taskId)
-    rowInstances.push(newTodoTask)
-
-    taskId += 1;
+function initTodoList(todoListContainer, userData) {
+    loadData(userData);
+    if (userData.length > 0) {
+        for (let row in userData) {
+            let rowData = userData[row];
+            new todoListItem(todoListContainer, rowData, saveData, deleteTaskData, updateUserData);
+        }
+    }
 }
 
-function deleteRow(taskIdToDelete) {
-    let index = rowInstances.findIndex(instance => instance.Id === taskIdToDelete);
-    rowInstances.splice(index, 1)
+function addBlankRow(todoListContainer, userData) {
+    let blankRowData = {"id": taskId, "task": null, "comment": null, "complete": false};
+    new todoListItem(todoListContainer, blankRowData, saveData, deleteTaskData, updateUserData);
+    userData.push(blankRowData);
+
+    taskId += 1;
+    console.log(userData)
+}
+
+function deleteTaskData(taskIdToDelete) {
+    console.log(taskIdToDelete)
+    let index = userData.findIndex(instance => instance.id === taskIdToDelete); //find the data in the userdata list based on the object's id
+    userData.splice(index, 1) //remove the object based on its index
+    console.log(userData)
 }  
 
 function saveData() {
-    let rowInstancesJSON = JSON.stringify(rowInstances)
+    let userDataJSON = JSON.stringify(userData)
     let taskIdJSON = JSON.stringify(taskId)
 
-    localStorage.setItem("row instances", rowInstancesJSON)
+    localStorage.setItem("user data", userDataJSON)
     localStorage.setItem("task id", taskIdJSON)
 }
 
 function loadData() {
-    rowInstances = JSON.parse(localStorage.getItem("row instances"))
+    let loadedData = JSON.parse(localStorage.getItem("user data"))
     taskId = JSON.parse(localStorage.getItem("task id"))
+
+    if (loadedData) {
+        return loadedData
+    } else {
+        loadedData = [{"id": 0, "task": "Teach pet rock new tricks", "comment": "Be patients he's a slow learner", "complete": false}] //list of objects {id: int, task: str, comment: str, complete: bool}
+        return loadedData
+    }
 }
+
+function updateUserData(taskId, task, comment, complete) {
+    let index = userData.findIndex(instance => instance.id === taskId);
+    userData[index]["task"] = task;
+    userData[index]["comment"] = comment;
+    userData[index]["complete"] = complete;
+
+    saveData()
+}
+
 
 // save the list data into an object then instance the new todlist objects from the data
